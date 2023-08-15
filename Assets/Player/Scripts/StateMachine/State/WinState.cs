@@ -1,18 +1,11 @@
-﻿public class WinState : State
-{
-    private Player player;
-    private StateMachine stateMachine;
-    private PlayerAnimation playerAnimation;
+﻿using Spine.Unity;
 
-    public WinState(Player player, StateMachine stateMachine, PlayerAnimation playerAnimation) : base(player, stateMachine, playerAnimation)
-    {
-        this.player = player;
-        this.stateMachine = stateMachine;
-        this.playerAnimation = playerAnimation;
-    }
+public class WinState : State
+{
+    public WinState(Player player, StateMachine stateMachine, SkeletonAnimation skeletonAnimation) : base(player, stateMachine, skeletonAnimation) { }
 
     public override void Enter()
     {
-        _playerAnimation.PlayWin();
+        SkeletonAnimation.AnimationState.AddAnimation(0, Player.WinAnimationState, false, -2f);
     }
 }

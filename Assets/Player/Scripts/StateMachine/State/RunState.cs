@@ -1,23 +1,21 @@
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Spine.Unity;
 
 public class RunState : State
 {
     private Movement _mover;
 
-    public RunState(Player player, StateMachine stateMachine, PlayerAnimation playerAnimation) : base(player, stateMachine, playerAnimation){ }
+    public RunState(Player player, StateMachine stateMachine, SkeletonAnimation skeletonAnimation) : base(player, stateMachine, skeletonAnimation) { }
 
     public override void Enter()
     {
-        _mover = _player.Movement;
+        _mover = Player.Movement;
 
-        _playerAnimation.PlayRun();
+        SkeletonAnimation.AnimationState.SetAnimation(0, Player.RunAnimationState, false);
+        SkeletonAnimation.AnimationState.AddAnimation(0, Player.RunAnimationState, true, -0.5f);
     }
 
     public override void LogicUpdate()
     {
-        _mover.Move(_player.TargetPositionX, _player.Speed);
+        _mover.Move(Player.TargetPositionX, Player.Speed);
     }
 }

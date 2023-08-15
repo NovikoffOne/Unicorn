@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Spine.Unity;
 
 public class IdleState : State
 {
-    public IdleState(Player player, StateMachine stateMachine, PlayerAnimation playerAnimation) : base(player, stateMachine, playerAnimation)
-    {
-    }
+    private Spine.AnimationState _animationState;
+
+    public IdleState(Player player, StateMachine stateMachine, SkeletonAnimation skeletonAnimation) : base(player, stateMachine, skeletonAnimation) { }
 
     public override void Enter()
     {
-        _playerAnimation.PlayIdle();
+        _animationState = SkeletonAnimation.AnimationState;
+
+        _animationState.SetAnimation(0, Player.IdleAnimationState, false);
     }
 }

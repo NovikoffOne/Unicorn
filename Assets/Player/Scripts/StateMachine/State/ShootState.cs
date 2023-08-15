@@ -1,24 +1,35 @@
+using Spine;
+using Spine.Unity;
+
 public class ShootState : State
 {
-    public ShootState(Player player, StateMachine stateMachine, PlayerAnimation playerAnimation) : base(player, stateMachine, playerAnimation)
+    public ShootState(Player player, StateMachine stateMachine, SkeletonAnimation skeletonAnimation) : base(player, stateMachine, skeletonAnimation)
     {
-        _player.OnEnemyHit += OnEnemyHiting;
+        Player.OnEnemyHit += OnEnemyHiting;
     }
 
     public override void Enter()
     {
-        _playerAnimation.PlayShoot(this);
+        SkeletonAnimation.AnimationState.Event += OnEnemyShooting;
+
+        Player.StartDelayShootEnd(Player.ShootAnimationState);
     }
 
-    public void DieEnemy()
+    public override void Exit()
     {
-        if (_enemy != null)
-            _enemy.Die();
-
+        SkeletonAnimation.AnimationState.Event -= OnEnemyShooting;
     }
 
     private void OnEnemyHiting(Enemy enemy)
     {
-        _enemy = enemy;
+        Enemy = enemy;
+    }
+
+    private void OnEnemyShooting(TrackEntry trackEntry, Spine.Event e)
+    {
+        Player.SpawnShootParticle();
+
+        if (Enemy != null)
+            Enemy.Die();
     }
 }

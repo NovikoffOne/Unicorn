@@ -1,11 +1,11 @@
-﻿public class LooseState : State
+﻿using Spine.Unity;
+
+public class LooseState : State
 {
-    public LooseState(Player player, StateMachine stateMachine, PlayerAnimation playerAnimation) : base(player, stateMachine, playerAnimation)
-    {
-    }
+    public LooseState(Player player, StateMachine stateMachine, SkeletonAnimation skeletonAnimation) : base(player, stateMachine, skeletonAnimation) { }
 
     public override void Enter()
     {
-        _playerAnimation.PlayLoose();
+        SkeletonAnimation.AnimationState.SetAnimation(0, Player.LooseAnimationState, false);
     }
 }

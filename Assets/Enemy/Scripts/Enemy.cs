@@ -35,7 +35,6 @@ public class Enemy : MonoBehaviour
     private EnemyStateMachine _stateMachine;
 
     public Movement Mover => _mover;
-    public SkeletonAnimation SkeletonAnimation => _skeletonAimation;
     public float TargetPositionX => _targetPositionX;
     public float Speed => _speed;
 
@@ -48,9 +47,9 @@ public class Enemy : MonoBehaviour
 
         _stateMachine = GetComponent<EnemyStateMachine>();
 
-        _runState = new EnemyRunState(this, _stateMachine);
-        _attackState = new EnemyAttack(this, _stateMachine);
-        _winState = new EnemyWinState(this, _stateMachine);
+        _runState = new EnemyRunState(this, _stateMachine, _skeletonAimation);
+        _attackState = new EnemyAttack(this, _stateMachine, _skeletonAimation);
+        _winState = new EnemyWinState(this, _stateMachine, _skeletonAimation);
     }
 
     private void Start()

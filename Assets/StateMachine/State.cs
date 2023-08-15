@@ -1,23 +1,28 @@
+using Spine.Unity;
+
 public abstract class State
 {
-    protected Player _player;
-    protected PlayerAnimation _playerAnimation;
+    protected Player Player;
 
-    protected Enemy _enemy;
+    protected SkeletonAnimation SkeletonAnimation;
 
-    protected StateMachine _stateMachine;
+    protected Enemy Enemy;
 
-    public State(Player player, StateMachine stateMachine, PlayerAnimation playerAnimation)
+    protected StateMachine StateMachine;
+
+    public State(Player player, StateMachine stateMachine, SkeletonAnimation skeletonAnimation)
     {
-        _player = player;
-        _stateMachine = stateMachine;
-        _playerAnimation = playerAnimation;
+        Player = player;
+        StateMachine = stateMachine;
+        SkeletonAnimation = skeletonAnimation;
+
     }
 
-    public State(Enemy enemy, StateMachine stateMachine)
+    public State(Enemy enemy, StateMachine stateMachine, SkeletonAnimation skeletonAnimation)
     {
-        _enemy = enemy;
-        _stateMachine = stateMachine;
+        Enemy = enemy;
+        StateMachine = stateMachine;
+        SkeletonAnimation = skeletonAnimation;
     }
 
     public virtual void Enter() { }
